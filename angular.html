@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Angular App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-section p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .interactive-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .greeting {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 600;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .counter-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .counter {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="MainController">
+    <div class="container">
+        <h1 class="pulse">{{title}}</h1>
+        
+        <div class="welcome-section">
+            <p>{{welcomeMessage}}</p>
+            <p>Current time: {{currentTime | date:'medium'}}</p>
+        </div>
+        
+        <div class="interactive-section">
+            <div class="input-group">
+                <label for="nameInput">Enter your name:</label>
+                <input type="text" id="nameInput" ng-model="userName" placeholder="Type your name here...">
+            </div>
+            
+            <div class="greeting">
+                <span ng-if="userName">Hello, {{userName}}! Welcome to Angular! 👋</span>
+                <span ng-if="!userName">Enter your name above to get a personalized greeting</span>
+            </div>
+        </div>
+        
+        <div class="counter-section">
+            <h3>Interactive Counter</h3>
+            <div class="counter">{{counter}}</div>
+            <button ng-click="increment()">Increment (+)</button>
+            <button ng-click="decrement()">Decrement (-)</button>
+            <button ng-click="reset()">Reset</button>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card" ng-click="showAlert('Data Binding')">
+                <span class="feature-icon">🔗</span>
+                <h4>Two-way Data Binding</h4>
+                <p>Automatic synchronization between model and view</p>
+            </div>
+            
+            <div class="feature-card" ng-click="showAlert('Directives')">
+                <span class="feature-icon">⚡</span>
+                <h4>Powerful Directives</h4>
+                <p>Extend HTML with custom functionality</p>
+            </div>
+            
+            <div class="feature-card" ng-click="showAlert('Controllers')">
+                <span class="feature-icon">🎮</span>
+                <h4>MVC Architecture</h4>
+                <p>Clean separation of concerns</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create the Angular app
+        var app = angular.module('myApp', []);
+        
+        // Create the main controller
+        app.controller('MainController', function($scope, $interval) {
+            // Initialize scope variables
+            $scope.title = 'Simple Angular App';
+            $scope.welcomeMessage = 'This is a basic Angular application demonstrating core features!';
+            $scope.userName = '';
+            $scope.counter = 0;
+            $scope.currentTime = new Date();
+            
+            // Update time every second
+            $interval(function() {
+                $scope.currentTime = new Date();
+            }, 1000);
+            
+            // Counter functions
+            $scope.increment = function() {
+                $scope.counter++;
+            };
+            
+            $scope.decrement = function() {
+                $scope.counter--;
+            };
+            
+            $scope.reset = function() {
+                $scope.counter = 0;
+            };
+            
+            // Feature card click handler
+            $scope.showAlert = function(feature) {
+                alert('You clicked on: ' + feature + '\n\nThis demonstrates Angular event handling!');
+            };
+        });
+    </script>
+</body>
+</html>
