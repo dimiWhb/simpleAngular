@@ -1,0 +1,7 @@
+stages:
+  - test
+
+job_hello_world:
+  stage: test
+  script:
+    - echo "Hello, GitLab CI!"
